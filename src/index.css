@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #172033;
+    background-color: #f8fafc;
+  }
+
+  h1, h2, h3, h4, h5, h6, .block-heading {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+
+  @media (max-width: 768px) {
+    html, body {
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    h1, h2, h3, h4, h5, h6, .block-heading {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+  }
+}
+
+/* Custom reader color schemes */
+.reader-theme-light {
+  background-color: #ffffff;
+  color: #172033;
+}
+
+.reader-theme-dark {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+.reader-theme-sepia {
+  background-color: #fcf6e8;
+  color: #433422;
+}
+
+/* Compact spacing helpers */
+.compact-spacing {
+  gap: 5px;
+}
+
+.compact-margin {
+  margin: 3px;
+}
+
+@media (max-width: 768px) {
+  .compact-margin {
+    margin: 2px;
+  }
+  .mobile-container {
+    width: 99% !important;
+    max-width: 99% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* Smooth transitions */
+.transition-all-fast {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile bottom nav safe area */
+.safe-bottom-padding {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+}

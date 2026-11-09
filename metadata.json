@@ -1,0 +1,8 @@
+{
+  "name": "Book Club II",
+  "description": "An all-in-one mobile-first academic digital library, e-reader, revision \u0026 examination platform, resource marketplace, and AI study companion.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing educational preferences, role, and subscription details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["student", "teacher", "author", "institution", "admin"] },
+        "educationLevel": { "type": "string" },
+        "institution": { "type": "string" },
+        "bio": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "subscriptionTier": { "type": "string", "enum": ["free", "plus", "premium"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Resource": {
+      "title": "Resource",
+      "description": "Educational resource item such as notes, past exams, textbooks, readers, novels, or storybooks",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "fullDescription": { "type": "string" },
+        "educationLevel": { "type": "string", "enum": ["primary", "jss", "senior", "college_uni"] },
+        "gradeLevel": { "type": "string" },
+        "subject": { "type": "string" },
+        "topic": { "type": "string" },
+        "category": { "type": "string", "enum": ["notes", "exams", "textbooks", "readers", "novels", "storybooks"] },
+        "curriculum": { "type": "string" },
+        "examSystem": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorEmail": { "type": "string" },
+        "coverImage": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "fileName": { "type": "string" },
+        "fileFormat": { "type": "string", "enum": ["pdf", "epub", "docx", "pptx", "txt"] },
+        "fileSize": { "type": "string" },
+        "pagesCount": { "type": "number" },
+        "language": { "type": "string" },
+        "publicationYear": { "type": "string" },
+        "isFree": { "type": "boolean" },
+        "priceKsh": { "type": "number" },
+        "copyrightDeclaration": { "type": "string" },
+        "downloadAllowed": { "type": "boolean" },
+        "readOnlineAllowed": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["published", "pending", "draft", "rejected"] },
+        "viewsCount": { "type": "number" },
+        "downloadsCount": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "featured": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "educationLevel", "category", "authorId", "status"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User review and rating for an academic resource",
+      "type": "object",
+      "properties": {
+        "resourceId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["resourceId", "userId", "rating", "comment"]
+    },
+    "LibraryItem": {
+      "title": "LibraryItem",
+      "description": "Resource saved in a user personal digital library",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "resourceTitle": { "type": "string" },
+        "resourceCategory": { "type": "string" },
+        "coverImage": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["userId", "resourceId"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Page or chapter bookmark within a document",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "pageNumber": { "type": "number" },
+        "chapterTitle": { "type": "string" },
+        "note": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "resourceId", "pageNumber"]
+    },
+    "ReadingProgress": {
+      "title": "ReadingProgress",
+      "description": "User progress through an e-book or document",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "currentPage": { "type": "number" },
+        "totalPages": { "type": "number" },
+        "percentage": { "type": "number" },
+        "lastReadAt": { "type": "string" }
+      },
+      "required": ["userId", "resourceId", "currentPage"]
+    },
+    "DownloadRecord": {
+      "title": "DownloadRecord",
+      "description": "History of downloaded resource items",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "resourceTitle": { "type": "string" },
+        "downloadedAt": { "type": "string" }
+      },
+      "required": ["userId", "resourceId"]
+    },
+    "ResourceRequest": {
+      "title": "ResourceRequest",
+      "description": "Student request for an unlisted textbook or revision resource",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "studentEmail": { "type": "string" },
+        "title": { "type": "string" },
+        "educationLevel": { "type": "string" },
+        "gradeLevel": { "type": "string" },
+        "subject": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "fulfilled", "closed"] },
+        "responsesCount": { "type": "number" },
+        "fulfilledResourceId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["studentId", "title", "educationLevel", "status"]
+    },
+    "ContributorApplication": {
+      "title": "ContributorApplication",
+      "description": "Application from a registered reader to become a verified teacher or author",
+      "type": "object",
+      "properties": {
+        "applicantId": { "type": "string" },
+        "applicantName": { "type": "string" },
+        "applicantEmail": { "type": "string" },
+        "roleRequested": { "type": "string", "enum": ["teacher", "author", "institution"] },
+        "qualifications": { "type": "string" },
+        "institution": { "type": "string" },
+        "sampleWorkUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "reviewNotes": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["applicantId", "roleRequested", "status"]
+    },
+    "Examination": {
+      "title": "Examination",
+      "description": "Online practice examination or test with questions and automatic grading",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "educationLevel": { "type": "string" },
+        "gradeLevel": { "type": "string" },
+        "subject": { "type": "string" },
+        "durationMinutes": { "type": "number" },
+        "totalMarks": { "type": "number" },
+        "questionsCount": { "type": "number" },
+        "passingScore": { "type": "number" },
+        "creatorId": { "type": "string" },
+        "creatorName": { "type": "string" },
+        "questions": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "educationLevel", "subject", "creatorId"]
+    },
+    "ExamAttempt": {
+      "title": "ExamAttempt",
+      "description": "Record of a student taking an online examination",
+      "type": "object",
+      "properties": {
+        "examId": { "type": "string" },
+        "examTitle": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "score": { "type": "number" },
+        "totalMarks": { "type": "number" },
+        "percentage": { "type": "number" },
+        "answers": { "type": "string" },
+        "completedAt": { "type": "string" },
+        "timeSpentSeconds": { "type": "number" }
+      },
+      "required": ["examId", "studentId", "score"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Financial transaction for paid resources or platform subscriptions",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "itemType": { "type": "string", "enum": ["resource", "subscription"] },
+        "itemId": { "type": "string" },
+        "itemTitle": { "type": "string" },
+        "amountKsh": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["mpesa", "card"] },
+        "mpesaPhoneNumber": { "type": "string" },
+        "transactionRef": { "type": "string" },
+        "status": { "type": "string", "enum": ["completed", "pending", "failed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "amountKsh", "paymentMethod", "status"]
+    },
+    "Wallet": {
+      "title": "Wallet",
+      "description": "Contributor wallet balance and lifetime earnings",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "balanceKsh": { "type": "number" },
+        "totalEarnedKsh": { "type": "number" },
+        "pendingWithdrawalKsh": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "balanceKsh"]
+    },
+    "WithdrawalRequest": {
+      "title": "WithdrawalRequest",
+      "description": "Payout request by a teacher/author to their mobile money account",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "amountKsh": { "type": "number" },
+        "mpesaPhone": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "notes": { "type": "string" },
+        "requestedAt": { "type": "string" },
+        "processedAt": { "type": "string" }
+      },
+      "required": ["userId", "amountKsh", "mpesaPhone", "status"]
+    },
+    "StudyGroup": {
+      "title": "StudyGroup",
+      "description": "Academic study group / discussion circle for students and educators",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "educationLevel": { "type": "string" },
+        "subject": { "type": "string" },
+        "creatorId": { "type": "string" },
+        "creatorName": { "type": "string" },
+        "membersCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "educationLevel", "subject", "creatorId"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User in-app notification",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "link": { "type": "string" },
+        "read": { "type": "boolean" },
+        "type": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "title", "message", "read"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Public and private user profile records"
+    },
+    "/resources/{resourceId}": {
+      "schema": "Resource",
+      "description": "Published and pending academic resources"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Ratings and reviews submitted by learners"
+    },
+    "/libraries/{libraryId}": {
+      "schema": "LibraryItem",
+      "description": "Personal digital bookshelf items"
+    },
+    "/bookmarks/{bookmarkId}": {
+      "schema": "Bookmark",
+      "description": "Page bookmarks and notes"
+    },
+    "/reading_progress/{progressId}": {
+      "schema": "ReadingProgress",
+      "description": "Document reading progress and position"
+    },
+    "/downloads/{downloadId}": {
+      "schema": "DownloadRecord",
+      "description": "Personal download history"
+    },
+    "/resource_requests/{requestId}": {
+      "schema": "ResourceRequest",
+      "description": "Student resource requests"
+    },
+    "/contributor_applications/{appId}": {
+      "schema": "ContributorApplication",
+      "description": "Teacher/Author upgrade verification applications"
+    },
+    "/examinations/{examId}": {
+      "schema": "Examination",
+      "description": "Online examinations and revision tests"
+    },
+    "/exam_attempts/{attemptId}": {
+      "schema": "ExamAttempt",
+      "description": "Student test attempts and grade transcripts"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Purchases and subscription billing entries"
+    },
+    "/wallets/{userId}": {
+      "schema": "Wallet",
+      "description": "Contributor wallet account records"
+    },
+    "/withdrawal_requests/{withdrawalId}": {
+      "schema": "WithdrawalRequest",
+      "description": "Contributor payout requests"
+    },
+    "/study_groups/{groupId}": {
+      "schema": "StudyGroup",
+      "description": "Academic study groups"
+    },
+    "/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "In-app notifications"
+    }
+  }
+}
